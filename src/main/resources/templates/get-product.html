@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>Product Catalog</title>
+    <link rel="stylesheet" href="/main.css" />
+</head>
+<body>
+<div th:switch="${product}">
+    <h2 th:case="null">
+        <p th:text="'No product with ' + ${name} + ' name!'" />
+    </h2>
+    <div th:case="*">
+        <h2>Product</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${product.getName()}"></td>
+                <td th:text="${product.getDescription()}"></td>
+                <td th:text="${product.getPrice()}"></td>
+                <td><a th:href="@{/edit/{id}(id=${product.getId()})}">Edit</a></td>
+                <td><a th:href="@{/delete/{id}(id=${product.getId()})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/">Return to welcome page</a></p>
+</body>
+</html>

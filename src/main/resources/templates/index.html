@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>Product Catalog</title>
+    <link rel="stylesheet" href="/main.css" />
+</head>
+<body>
+<div th:switch="${products}">
+    <h2 th:case="null">No users yet!</h2>
+    <div th:case="*">
+        <h2>Products</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.getName()}"></td>
+                <td th:text="${product.getDescription()}"></td>
+                <td th:text="${product.getPrice()}"></td>
+                <td><a th:href="@{/edit/{id}(id=${product.getId()})}">Edit</a></td>
+                <td><a th:href="@{/delete/{id}(id=${product.getId()})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/addingForm">Add a new product</a></p>
+    <form th:action="@{getProduct}" method="get">
+        <input type="text" name="name" th:value="${name}" class="form-control" placeholder=" Product name..." />
+    </form>
+</div>
+</body>
+</html>
